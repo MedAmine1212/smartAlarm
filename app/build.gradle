@@ -4,12 +4,12 @@ plugins {
 
 android {
     namespace 'com.example.smartalarm'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.smartalarm"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -32,6 +32,17 @@ android {
 }
 
 dependencies {
+    // Force WorkManager 2.6.0 for transitive dependency
+
+    implementation "androidx.room:room-runtime:2.4.3"
+    annotationProcessor "androidx.room:room-compiler:2.4.3"
+
+
+    implementation "androidx.room:room-rxjava2:2.4.3"
+    implementation "androidx.room:room-rxjava3:2.4.3"
+    implementation "androidx.room:room-guava:2.4.3"
+    testImplementation "androidx.room:room-testing:2.4.3"
+    implementation "androidx.room:room-paging:2.5.0-beta01"
 
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
