@@ -37,12 +37,12 @@ dependencies {
     implementation "androidx.room:room-runtime:2.4.3"
     annotationProcessor "androidx.room:room-compiler:2.4.3"
 
+    implementation "androidx.room:room-ktx:2.4.3"
+    implementation "androidx.room:room-paging:2.4.3"
 
-    implementation "androidx.room:room-rxjava2:2.4.3"
-    implementation "androidx.room:room-rxjava3:2.4.3"
-    implementation "androidx.room:room-guava:2.4.3"
-    testImplementation "androidx.room:room-testing:2.4.3"
-    implementation "androidx.room:room-paging:2.5.0-beta01"
+// Paging 3.0
+    implementation 'androidx.paging:paging-compose:1.0.0-alpha17'
+
 
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'

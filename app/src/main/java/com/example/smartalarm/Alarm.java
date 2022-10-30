@@ -15,8 +15,7 @@ public class Alarm {
     @ColumnInfo(name = "reqId")
     Integer reqId;
 
-    public Alarm(Integer id, Integer time, Integer status, Integer reqId) {
-        this.id = id;
+    public Alarm(Integer time, Integer status, Integer reqId) {
         this.reqId = reqId;
         this.time = time;
         this.status = status;

@@ -1,17 +1,17 @@
 package com.example.smartalarm;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
+import java.util.List;
 
-import java.util.ArrayList;
-
+@Dao
 public interface AlarmDAO {
 
    @Query("select * from alarm")
-    ArrayList<Alarm> getAlarmsList();
+   List<Alarm> getAlarmsList();
 
     @Query("select count(id) from alarm")
     Integer getAlarmsCount();

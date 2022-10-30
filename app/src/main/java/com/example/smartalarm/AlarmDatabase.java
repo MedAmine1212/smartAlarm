@@ -1,13 +1,13 @@
 package com.example.smartalarm;
 
-import android.app.Person;
 import android.content.Context;
 
 import androidx.room.Database;
 import androidx.room.Room;
+import androidx.room.RoomDatabase;
 
-@Database(entities = Alarm.class,exportSchema = false, version = 1)
-public abstract class AlarmDatabase extends RoomDataBase{
+@Database(entities = {Alarm.class},exportSchema = false, version = 1)
+public abstract class AlarmDatabase extends RoomDatabase {
     private static final String BD_NAME = "alarm_db";
     private static AlarmDatabase instance;
 

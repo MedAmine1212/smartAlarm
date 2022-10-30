@@ -19,6 +19,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import com.example.smartalarm.databinding.ActivityMainBinding;
 
@@ -34,15 +35,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         com.example.smartalarm.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         setSupportActionBar(binding.appBarMain.toolbar);
-        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, SetAlarm.class);
-                startActivity(intent);
+        binding.appBarMain.fab.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, SetAlarm.class);
+            startActivity(intent);
 
-            }
         });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;

@@ -1,6 +1,7 @@
 package com.example.smartalarm;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -32,18 +33,17 @@ public class SetAlarm extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-//                AlarmDatabase db = Room.databaseBuilder(getApplicationContext(),
-//                        AlarmDatabase.class, "database-name").build();
+                AlarmDatabase dbHandler = Room.databaseBuilder(getApplicationContext(),
+                        AlarmDatabase.class, "alarm_db").allowMainThreadQueries().build();
 
+                int reqCode = dbHandler.alarmDAO().getAlarmsCount()+1;
                 int time = Integer.parseInt(((EditText)(findViewById(R.id.edtTime))).getText().toString());
                 long triggerTime = System.currentTimeMillis()+(time* 1000L);
                 Intent idBroadCast = new Intent(SetAlarm.this, MyReciever.class);
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(SetAlarm.this, 1, idBroadCast, PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(SetAlarm.this, reqCode, idBroadCast, PendingIntent.FLAG_UPDATE_CURRENT);
                 alarmManager.set(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent);
                 Intent intent = new Intent(SetAlarm.this, MainActivity.class);
-//                dbHandler.addNewAlarm(time,reqCode, 1);
-
-//                alarmManager.cancel(pendingIntent);
+                dbHandler.alarmDAO().addAlarm(new Alarm(time, 1, reqCode));
 
                 startActivity(intent);
             }
