@@ -15,7 +15,5 @@ public class MyReciever extends BroadcastReceiver {
         mp = MediaPlayer.create(context, Settings.System.DEFAULT_ALARM_ALERT_URI);
         mp.setLooping(true);
         mp.start();
-
-
     }
 }

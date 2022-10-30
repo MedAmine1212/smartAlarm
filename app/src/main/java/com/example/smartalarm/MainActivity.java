@@ -2,6 +2,7 @@ package com.example.smartalarm;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -18,28 +19,27 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import com.example.smartalarm.databinding.ActivityMainBinding;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
-    static final int ALARM_REQ_CODE = 100;
     private AppBarConfiguration mAppBarConfiguration;
-    private ActivityMainBinding binding;
+    public  static MainActivity instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        MainActivity.instance = MainActivity.this;
         super.onCreate(savedInstanceState);
-
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        com.example.smartalarm.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         setSupportActionBar(binding.appBarMain.toolbar);
-        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
+        binding.appBarMain.fab.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, SetAlarm.class);
+            startActivity(intent);
+
         });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
@@ -52,25 +52,9 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-
-
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        findViewById(R.id.btnSet).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int time = Integer.parseInt(((EditText)(findViewById(R.id.edtTime))).getText().toString());
-                long triggerTime = System.currentTimeMillis()+(time* 1000L);
-                Intent idBroadCast = new Intent(MainActivity.this, MyReciever.class);
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, ALARM_REQ_CODE, idBroadCast, PendingIntent.FLAG_UPDATE_CURRENT);
-                alarmManager.set(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent);
-                Toast.makeText(getApplicationContext(),
-                                "Alarm set successfully",
-                                Toast.LENGTH_LONG)
-                        .show();
-            }
-        });
-
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
