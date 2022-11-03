@@ -24,4 +24,11 @@ public interface AlarmDAO {
 
     @Delete
     void deleteAlarm(Alarm alarm);
+
+
+    @Query("delete from alarm")
+    Integer deleteAll();
+
+    @Query("select * from alarm where reqId = :id")
+    Alarm getAlarmByReqCode(Integer id);
 }
