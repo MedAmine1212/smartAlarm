@@ -32,7 +32,7 @@ public class MyReciever extends BroadcastReceiver {
                 .setContentTitle("Smart Alarm")
                 .setContentText("Alarm is on, click to turn off !")
                 .setAutoCancel(false)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setContentIntent(intent2);
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);

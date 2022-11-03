@@ -49,7 +49,9 @@ public class MainActivity extends AppCompatActivity {
 //            createNotificationChannel();
 //        }
         showAlarmList();
-        createNotificationChannel();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            createNotificationChannel();
+        }
         setSupportActionBar(binding.appBarMain.toolbar);
         binding.appBarMain.fab.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, SetAlarm.class);
@@ -79,10 +81,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void createNotificationChannel() {
         CharSequence name = "Smart Alarm";
         String desc = "Alarm is on, click to turn off !";
-        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        int importance = NotificationManager.IMPORTANCE_HIGH;
         NotificationChannel channel = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             channel = new NotificationChannel("smartAlarmNotifier", name, importance);
