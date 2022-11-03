@@ -22,8 +22,9 @@ public class MyReciever extends BroadcastReceiver {
 
         int id = intent.getIntExtra("reqCode", 0);
 
-        //Quizz intent here f blaset MainActivity
+        //Quizz intent here f blaset MainActivity and send notification
         Intent activityIntent = new Intent(context, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         activityIntent.putExtra("reqCode", id);
         PendingIntent intent2 = PendingIntent.getActivity(context, -1, activityIntent, 0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "smartAlarmNotifier")
@@ -31,15 +32,19 @@ public class MyReciever extends BroadcastReceiver {
                 .setContentTitle("Smart Alarm")
                 .setContentText("Alarm is on, click to turn off !")
                 .setAutoCancel(false)
-                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setContentIntent(intent2);
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
         notificationManagerCompat.notify(123, builder.build());
+
+
+        //play alarm sound
         mp = MediaPlayer.create(context, Settings.System.DEFAULT_ALARM_ALERT_URI);
         mp.setLooping(true);
         mp.start();
 
+        //get the alarm and check if should be repeated or canceled
         AlarmDatabase dbHandler = Room.databaseBuilder(context,
                 AlarmDatabase.class, "alarm_db").allowMainThreadQueries().build();
        Alarm alarm = dbHandler.alarmDAO().getAlarmByReqCode(id);
