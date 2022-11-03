@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:gravity="start"
-            android:paddingLeft="20dp"
+            android:paddingStart="20dp"
             android:orientation="horizontal">
 
             <TextView
@@ -40,11 +40,24 @@
                 android:layout_gravity="center"
                 android:layout_margin="20dp" />
         </LinearLayout>
-        <Button
-            android:layout_marginTop="50dp"
+    <LinearLayout
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:paddingStart="20dp"
+        android:orientation="horizontal">
+
+    <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btnSet"
             android:text="@string/set_alarm"/>
-
+    <Button
+        android:layout_marginStart="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cancelBtn"
+        android:text="@string/cancel"/>
+    </LinearLayout>
     </LinearLayout>

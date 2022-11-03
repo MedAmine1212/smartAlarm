@@ -1,9 +1,13 @@
 package com.example.smartalarm;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
@@ -16,6 +20,7 @@ import android.widget.Toast;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.RequiresApi;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -38,9 +43,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         MainActivity.instance = MainActivity.this;
         super.onCreate(savedInstanceState);
-        com.example.smartalarm.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            createNotificationChannel();
+        }
         showAlarmList();
         setSupportActionBar(binding.appBarMain.toolbar);
         binding.appBarMain.fab.setOnClickListener(view -> {
@@ -69,5 +76,18 @@ public class MainActivity extends AppCompatActivity {
         CustomBaseAdapter customAdapter = new CustomBaseAdapter(getApplicationContext(), alarmList);
         listview.setAdapter(customAdapter);
 
+    }
+
+    @SuppressLint("WrongConstant")
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void createNotificationChannel() {
+        CharSequence name = "Smart Alarm";
+        String desc = "Alarm is on, click to turn off !";
+        int importance = NotificationManager.IMPORTANCE_MAX;
+        NotificationChannel channel = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            channel = new NotificationChannel("smartAlarmNotifier", name, importance);
+            channel.setDescription(desc);
+        }
     }
 }

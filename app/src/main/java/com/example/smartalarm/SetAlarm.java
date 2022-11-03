@@ -1,8 +1,10 @@
 package com.example.smartalarm;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.room.Room;
 
+import android.app.ActionBar;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -18,6 +20,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.smartalarm.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Calendar;
 import java.util.Set;
@@ -35,9 +38,16 @@ public class SetAlarm extends AppCompatActivity {
         TimePicker timePick = ((TimePicker)findViewById(R.id.edtTime));
         timePick.setIs24HourView(true);
 
+        findViewById(R.id.cancelBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SetAlarm.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
-        findViewById(R.id.btnSet).setOnClickListener(new View.OnClickListener() {
+                findViewById(R.id.btnSet).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -75,7 +85,8 @@ public class SetAlarm extends AppCompatActivity {
                     timeString+=timePick.getMinute();
                     dbHandler.alarmDAO().addAlarm(new Alarm(calendar.getTimeInMillis(),timeString, 1, repeat, reqCode));
                 }
-
+                Toast.makeText(SetAlarm.this, "Alarm set successfully !",
+                        Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(SetAlarm.this, MainActivity.class);
                 startActivity(intent);
             }
