@@ -7,7 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -24,6 +27,8 @@ import androidx.room.Room;
 import com.example.smartalarm.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
@@ -35,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         com.example.smartalarm.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        showAlarmList();
         setSupportActionBar(binding.appBarMain.toolbar);
         binding.appBarMain.fab.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, SetAlarm.class);
@@ -54,19 +61,13 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
     }
 
+    private void showAlarmList() {
+        AlarmDatabase dbHandler = Room.databaseBuilder(getApplicationContext(),
+                AlarmDatabase.class, "alarm_db").allowMainThreadQueries().build();
+        List<Alarm> alarmList = dbHandler.alarmDAO().getAlarmsList();
+        ListView listview = findViewById(R.id.alarmsList);
+        CustomBaseAdapter customAdapter = new CustomBaseAdapter(getApplicationContext(), alarmList);
+        listview.setAdapter(customAdapter);
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
     }
 }
