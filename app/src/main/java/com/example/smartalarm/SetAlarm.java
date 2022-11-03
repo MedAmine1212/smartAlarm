@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -53,13 +54,29 @@ public class SetAlarm extends AppCompatActivity {
 
                 }
                 Intent idBroadCast = new Intent(SetAlarm.this, MyReciever.class);
+                idBroadCast.putExtra("reqCode", reqCode);
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(SetAlarm.this, reqCode, idBroadCast, PendingIntent.FLAG_UPDATE_CURRENT);
                 alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-                Intent intent = new Intent(SetAlarm.this, MainActivity.class);
+                int repeat = 0;
+                if(((Switch)findViewById(R.id.repeatOnOff)).isChecked()) {
+                    repeat = 1;
+                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+                }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    dbHandler.alarmDAO().addAlarm(new Alarm(calendar.getTimeInMillis(),timePick.getHour()+":"+timePick.getMinute(), 1, reqCode));
+                    String timeString = "";
+                    if(timePick.getHour() < 10){
+                        timeString+="0";
+                    }
+                    calendar.getTime();
+                    timeString+=timePick.getHour()+":";
+                    if(timePick.getMinute() < 10){
+                        timeString+="0";
+                    }
+                    timeString+=timePick.getMinute();
+                    dbHandler.alarmDAO().addAlarm(new Alarm(calendar.getTimeInMillis(),timeString, 1, repeat, reqCode));
                 }
 
+                Intent intent = new Intent(SetAlarm.this, MainActivity.class);
                 startActivity(intent);
             }
         });

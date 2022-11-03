@@ -14,11 +14,32 @@
 
     <TimePicker
         android:id="@+id/edtTime"
-        
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/set_time_here_in_secs" />
 
+    <LinearLayout
+            android:layout_marginTop="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="start"
+            android:paddingLeft="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:textSize="30sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/repeat_alarm" />
+
+            <Switch
+                android:layout_marginTop="20dp"
+                android:id="@+id/repeatOnOff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="20dp" />
+        </LinearLayout>
         <Button
             android:layout_marginTop="50dp"
             android:layout_width="wrap_content"
