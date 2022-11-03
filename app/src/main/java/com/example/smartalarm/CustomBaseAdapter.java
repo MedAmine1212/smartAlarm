@@ -40,7 +40,7 @@ public class CustomBaseAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = inflater.inflate(R.layout.activity_alarms_list, null);
         TextView txtView = (TextView)convertView.findViewById(R.id.alarmTime);
-        txtView.setText(Integer.toString(alarmList.get(position).time));
+        txtView.setText(alarmList.get(position).timeString);
         return convertView;
     }
 }

@@ -12,4 +12,5 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="set_time_here_in_secs">Set time here in (secs)</string>
     <string name="set_alarm">Set alarm</string>
+    <string name="active">Active</string>
 </resources>
