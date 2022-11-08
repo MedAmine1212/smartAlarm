@@ -20,22 +20,41 @@ public class MyReciever extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "smartAlarm")
+        int id = intent.getIntExtra("reqCode", 0);
+
+
+        AlarmDatabase dbHandler = Room.databaseBuilder(context,
+                AlarmDatabase.class, "alarm_db").allowMainThreadQueries().build();
+        Alarm alarm = dbHandler.alarmDAO().getAlarmByReqCode(id);
+        System.out.println("status: "+alarm.status);
+        if(alarm.status == 0) {
+            dbHandler.close();
+            return;
+        }
+        System.out.println("Running");
+        //Quizz intent here f blaset MainActivity and send notification
+        Intent activityIntent = new Intent(context, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        activityIntent.putExtra("reqCode", id);
+        PendingIntent intent2 = PendingIntent.getActivity(context, -1, activityIntent, 0);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "smartAlarmNotifier")
                 .setSmallIcon(R.drawable.ic_launcher_background)
                 .setContentTitle("Smart Alarm")
-                .setContentText("Alarm is on click to turn off !")
+                .setContentText("Alarm is on, click to turn off !")
                 .setAutoCancel(false)
-                .setDefaults(NotificationCompat.DEFAULT_ALL);
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setDefaults(NotificationCompat.DEFAULT_ALL)
+                .setContentIntent(intent2);
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
         notificationManagerCompat.notify(123, builder.build());
+
+
+        //play alarm sound
         mp = MediaPlayer.create(context, Settings.System.DEFAULT_ALARM_ALERT_URI);
         mp.setLooping(true);
         mp.start();
 
-        Integer id = intent.getIntExtra("reqCode", 0);
-        AlarmDatabase dbHandler = Room.databaseBuilder(context,
-                AlarmDatabase.class, "alarm_db").allowMainThreadQueries().build();
-       Alarm alarm = dbHandler.alarmDAO().getAlarmByReqCode(id);
+        //get the alarm and check if should be repeated or canceled
        if(alarm.repeat == 0) {
            //cancel repeat
            alarm.status = 0;
@@ -44,6 +63,7 @@ public class MyReciever extends BroadcastReceiver {
            AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
            am.cancel(pendingIntent);
        }
+        dbHandler.close();
 
     }
 }

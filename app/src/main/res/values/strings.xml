@@ -14,4 +14,6 @@
     <string name="set_alarm">Set alarm</string>
     <string name="active">Active</string>
     <string name="repeat_alarm">Repeat alarm</string>
+    <string name="cancel">Cancel</string>
+    <string name="new_alarm">Set a new alarm</string>
 </resources>
