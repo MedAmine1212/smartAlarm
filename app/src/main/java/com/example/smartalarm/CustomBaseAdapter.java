@@ -80,6 +80,10 @@ public class CustomBaseAdapter extends BaseAdapter {
                             notifyDataSetChanged();
                             dbHandler.alarmDAO().deleteAlarm(alarmList.get(position));
                             alarmList.remove(position);
+                            if(alarmList.size() == 0) {
+                                ((TextView)MainActivity.instance.findViewById(R.id.text_home)).setText("No Alarms to show");
+
+                            }
                             Toast.makeText(ctx, "Alarm deleted successfully !",
                                     Toast.LENGTH_LONG).show();
 

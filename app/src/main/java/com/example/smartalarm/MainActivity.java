@@ -1,23 +1,13 @@
 package com.example.smartalarm;
 
-import android.annotation.SuppressLint;
-import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
-import android.view.Menu;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.RequiresApi;
@@ -31,9 +21,7 @@ import androidx.room.Room;
 
 import com.example.smartalarm.databinding.ActivityMainBinding;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -46,10 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//            createNotificationChannel();
-//        }
-        showAlarmList();
+        setAlarmsList();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             createNotificationChannel();
         }
@@ -71,19 +56,14 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        //Settings
+
+
+
+        //End settings
     }
 
-    private void showAlarmList() {
-        AlarmDatabase dbHandler = Room.databaseBuilder(getApplicationContext(),
-                AlarmDatabase.class, "alarm_db").allowMainThreadQueries().build();
-        List<Alarm> alarmList = dbHandler.alarmDAO().getAlarmsList();
-        Collections.reverse(alarmList);
-        ListView listview = findViewById(R.id.alarmsList);
-        CustomBaseAdapter customAdapter = new CustomBaseAdapter(getApplicationContext(), alarmList, MainActivity.this);
-        listview.setAdapter(customAdapter);
-        dbHandler.close();
-
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void createNotificationChannel() {
@@ -95,5 +75,21 @@ public class MainActivity extends AppCompatActivity {
             channel = new NotificationChannel("smartAlarmNotifier", name, importance);
             channel.setDescription(desc);
         }
+    }
+
+    public void setAlarmsList() {
+        AlarmDatabase dbHandler = Room.databaseBuilder(getApplicationContext(),
+                AlarmDatabase.class, "alarm_db").allowMainThreadQueries().build();
+        List<Alarm> alarmList = dbHandler.alarmDAO().getAlarmsList();
+        if(alarmList.size() == 0) {
+            ((TextView)findViewById(R.id.text_home)).setText("No Alarms to show");
+        } else {
+
+            Collections.reverse(alarmList);
+            ListView listview = findViewById(R.id.alarmsList);
+            CustomBaseAdapter customAdapter = new CustomBaseAdapter(getApplicationContext(), alarmList, MainActivity.this);
+            listview.setAdapter(customAdapter);
+        }
+        dbHandler.close();
     }
 }

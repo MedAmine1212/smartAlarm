@@ -2,14 +2,14 @@
     <string name="app_name">SmartAlarm</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">Smart Alarm</string>
+    <string name="nav_header_subtitle">You will be awaken !</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_home">Alarms list</string>
+    <string name="menu_gallery">Manage quizzes</string>
+    <string name="menu_slideshow">Settings</string>
     <string name="set_time_here_in_secs">Set time here in (secs)</string>
     <string name="set_alarm">Set alarm</string>
     <string name="active">Active</string>
