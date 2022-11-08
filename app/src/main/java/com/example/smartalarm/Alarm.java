@@ -1,5 +1,6 @@
 package com.example.smartalarm;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -25,5 +26,18 @@ public class Alarm {
         this.timeString = timeString;
         this.status = status;
         this.repeat = repeat;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "Alarm{" +
+                "id=" + id +
+                ", time=" + time +
+                ", timeString='" + timeString + '\'' +
+                ", status=" + status +
+                ", repeat=" + repeat +
+                ", reqId=" + reqId +
+                '}';
     }
 }

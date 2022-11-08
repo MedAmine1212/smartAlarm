@@ -12,11 +12,18 @@
         android:orientation="vertical"
         tools:ignore="UseSwitchCompatOrMaterialXml">
 
+    <TextView
+        android:id="@+id/pageTitle"
+        android:textSize="30sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="@string/new_alarm" />
+
     <TimePicker
         android:id="@+id/edtTime"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/set_time_here_in_secs" />
+        android:layout_height="wrap_content" />
 
     <LinearLayout
             android:layout_marginTop="50dp"

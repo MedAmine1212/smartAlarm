@@ -22,6 +22,16 @@ public class MyReciever extends BroadcastReceiver {
 
         int id = intent.getIntExtra("reqCode", 0);
 
+
+        AlarmDatabase dbHandler = Room.databaseBuilder(context,
+                AlarmDatabase.class, "alarm_db").allowMainThreadQueries().build();
+        Alarm alarm = dbHandler.alarmDAO().getAlarmByReqCode(id);
+        System.out.println("status: "+alarm.status);
+        if(alarm.status == 0) {
+            dbHandler.close();
+            return;
+        }
+        System.out.println("Running");
         //Quizz intent here f blaset MainActivity and send notification
         Intent activityIntent = new Intent(context, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -45,9 +55,6 @@ public class MyReciever extends BroadcastReceiver {
         mp.start();
 
         //get the alarm and check if should be repeated or canceled
-        AlarmDatabase dbHandler = Room.databaseBuilder(context,
-                AlarmDatabase.class, "alarm_db").allowMainThreadQueries().build();
-       Alarm alarm = dbHandler.alarmDAO().getAlarmByReqCode(id);
        if(alarm.repeat == 0) {
            //cancel repeat
            alarm.status = 0;
@@ -56,6 +63,7 @@ public class MyReciever extends BroadcastReceiver {
            AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
            am.cancel(pendingIntent);
        }
+        dbHandler.close();
 
     }
 }

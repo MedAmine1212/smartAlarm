@@ -32,6 +32,7 @@ import androidx.room.Room;
 import com.example.smartalarm.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(binding.appBarMain.toolbar);
         binding.appBarMain.fab.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, SetAlarm.class);
+            intent.putExtra("reqId", -1);
             startActivity(intent);
 
         });
@@ -75,9 +77,11 @@ public class MainActivity extends AppCompatActivity {
         AlarmDatabase dbHandler = Room.databaseBuilder(getApplicationContext(),
                 AlarmDatabase.class, "alarm_db").allowMainThreadQueries().build();
         List<Alarm> alarmList = dbHandler.alarmDAO().getAlarmsList();
+        Collections.reverse(alarmList);
         ListView listview = findViewById(R.id.alarmsList);
-        CustomBaseAdapter customAdapter = new CustomBaseAdapter(getApplicationContext(), alarmList);
+        CustomBaseAdapter customAdapter = new CustomBaseAdapter(getApplicationContext(), alarmList, MainActivity.this);
         listview.setAdapter(customAdapter);
+        dbHandler.close();
 
     }
 
