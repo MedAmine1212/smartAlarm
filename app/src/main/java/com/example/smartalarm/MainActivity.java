@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
        }
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        setAlarmsList();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             createNotificationChannel();
         }
@@ -63,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_stats)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -87,19 +86,6 @@ public class MainActivity extends AppCompatActivity {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             channel = new NotificationChannel("smartAlarmNotifier", name, importance);
             channel.setDescription(desc);
-        }
-    }
-
-    public void setAlarmsList() {
-         List<Alarm> alarmList = dbHandler.alarmDAO().getAlarmsList();
-        if(alarmList.size() == 0) {
-            ((TextView)findViewById(R.id.text_home)).setText("No Alarms to show");
-        } else {
-
-            Collections.reverse(alarmList);
-            ListView listview = findViewById(R.id.alarmsList);
-            CustomBaseAdapter customAdapter = new CustomBaseAdapter(getApplicationContext(), alarmList, MainActivity.this);
-            listview.setAdapter(customAdapter);
         }
     }
 }
