@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {Alarm.class, AppData.class},exportSchema = false, version = 1)
+@Database(entities = {Alarm.class, AppData.class, History.class},exportSchema = false, version = 1)
 public abstract class AlarmDatabase extends RoomDatabase {
     private static final String BD_NAME = "alarm_db";
     private static AlarmDatabase instance;
@@ -23,4 +23,6 @@ public abstract class AlarmDatabase extends RoomDatabase {
 
     public abstract AlarmDAO alarmDAO();
     public abstract AppDataDAO appDataDAO();
+    public abstract HistoryDAO historyDAO();
+
 }
