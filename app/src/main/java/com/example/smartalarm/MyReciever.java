@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Vibrator;
 import android.provider.Settings;
 
@@ -50,7 +51,8 @@ public class MyReciever extends BroadcastReceiver {
 
 
         //play alarm sound
-        mp = MediaPlayer.create(context, Settings.System.DEFAULT_ALARM_ALERT_URI);
+        AppData appData = dbHandler.appDataDAO().getAppData();
+        mp = MediaPlayer.create(context, Uri.parse(appData.ringtoneUri));
         mp.setLooping(true);
         mp.start();
 
