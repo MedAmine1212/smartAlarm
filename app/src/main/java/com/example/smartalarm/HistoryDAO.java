@@ -18,13 +18,13 @@ public interface HistoryDAO {
     Integer getHistoryCount();
 
     @Insert
-    void addHistory(Alarm History);
+    void addHistory(History history);
 
     @Update
-    void updateHistory(Alarm History);
+    void updateHistory(History history);
 
     @Delete
-    void deleteHistory(Alarm History);
+    void deleteHistory(History history);
 
     @Query("delete from History")
     Integer deleteAllHistory();

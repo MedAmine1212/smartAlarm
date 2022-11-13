@@ -10,9 +10,15 @@ public class History  {
     @PrimaryKey(autoGenerate = true)
     Integer id;
     @ColumnInfo(name = "question")
-    private String question;
+    public String question;
     @ColumnInfo(name = "answer")
-    private int answer;
+    public int answer;
+
+
+
+    public History() {
+
+    }
 
 
     public History(String question, int answer) {

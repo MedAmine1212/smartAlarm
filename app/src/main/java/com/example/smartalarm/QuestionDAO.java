@@ -5,7 +5,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
-
+import com.example.smartalarm.Question;
 import java.util.List;
 
 @Dao
@@ -18,16 +18,18 @@ public interface QuestionDAO {
     Integer getQuestionCount();
 
     @Insert
-    void addQuestion(Alarm Question);
+    void addQuestion(Question question);
 
     @Update
-    void updateQuestion(Alarm Question);
+    void updateQuestion(Question question);
 
     @Delete
-    void deleteQuestion(Alarm Question);
+    void deleteQuestion(Question question);
 
     @Query("delete from Question")
     Integer deleteAllQuestion();
 
+    @Query("SELECT * FROM  Question ORDER BY RANDOM() LIMIT 1")
+    Question getRandomQuestion();
 
 }

@@ -27,18 +27,32 @@ public class Question  {
     @ColumnInfo(name = "answerNr")
     private int answerNr;
 
+    @ColumnInfo(name = "selected")
+    private boolean selected;
+
     public Question() {
     }
 
 
-    public Question(Integer id, String question, String option1, String option2, String option3, int answerNr) {
+    public Question(Integer id, String question, String option1, String option2, String option3, int answerNr, boolean selected) {
         this.id = id;
         this.question = question;
         this.option1 = option1;
         this.option2 = option2;
         this.option3 = option3;
         this.answerNr = answerNr;
+        this.selected = selected;
     }
+
+    public Question( String question, String option1, String option2, String option3, int answerNr) {
+        this.question = question;
+        this.option1 = option1;
+        this.option2 = option2;
+        this.option3 = option3;
+        this.answerNr = answerNr;
+    }
+
+
 
     public Integer getId() {
         return id;
@@ -86,5 +100,13 @@ public class Question  {
 
     public void setAnswerNr(int answerNr) {
         this.answerNr = answerNr;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }
