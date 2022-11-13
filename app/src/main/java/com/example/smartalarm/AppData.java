@@ -15,6 +15,8 @@ public class AppData {
     @ColumnInfo(name = "statsStartDate")
     String statsStartDate;
 
+
+
     public AppData(String ringtoneUri, Long totalSleepPeriod, String statsStartDate) {
         this.ringtoneUri = ringtoneUri;
         this.totalSleepPeriod = totalSleepPeriod;
