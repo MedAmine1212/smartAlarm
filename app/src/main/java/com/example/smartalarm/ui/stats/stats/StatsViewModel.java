@@ -1,16 +1,16 @@
-package com.example.smartalarm.ui.gallery;
+package com.example.smartalarm.ui.stats.stats;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class GalleryViewModel extends ViewModel {
+public class StatsViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
-    public GalleryViewModel() {
+    public StatsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("Quizzes");
+        mText.setValue("Stats");
     }
 
     public LiveData<String> getText() {

@@ -14,6 +14,7 @@ import androidx.room.Room;
 
 import com.example.smartalarm.Alarm;
 import com.example.smartalarm.AlarmDatabase;
+import com.example.smartalarm.AlarmsList;
 import com.example.smartalarm.CustomBaseAdapter;
 import com.example.smartalarm.MainActivity;
 import com.example.smartalarm.R;
@@ -36,9 +37,24 @@ public class HomeFragment extends Fragment {
 
         final TextView textView = binding.textHome;
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        setAlarmsList(textView);
         return root;
     }
+    public void setAlarmsList(TextView textView) {
+        AlarmDatabase dbHandler = Room.databaseBuilder(MainActivity.instance.getApplicationContext(),
+                AlarmDatabase.class, "alarm_db").allowMainThreadQueries().build();
+        List<Alarm> alarmList = dbHandler.alarmDAO().getAlarmsList();
+        if(alarmList.size() == 0) {
+            textView.setText("No Alarms to show");
+        } else {
 
+            Collections.reverse(alarmList);
+            ListView listview = binding.alarmsList;
+            CustomBaseAdapter customAdapter = new CustomBaseAdapter(MainActivity.instance.getApplicationContext(), alarmList, MainActivity.instance);
+            listview.setAdapter(customAdapter);
+        }
+        dbHandler.close();
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();

@@ -9,11 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.room.Room;
 
+import com.example.smartalarm.AlarmDatabase;
 import com.example.smartalarm.CustomBaseAdapter;
 import com.example.smartalarm.MainActivity;
 import com.example.smartalarm.R;
@@ -38,6 +41,14 @@ public class SlideshowFragment extends Fragment {
         binding.soundSettings.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.instance, RingtonesList.class);
             startActivity(intent);
+        });
+        binding.disableAll.setOnClickListener(view -> {
+            AlarmDatabase dbHandler = Room.databaseBuilder(MainActivity.instance.getApplicationContext(),
+                    AlarmDatabase.class, "alarm_db").allowMainThreadQueries().build();
+            dbHandler.alarmDAO().disableAll();
+            Toast.makeText(MainActivity.instance, "All alarms deactivated successfully !",
+                    Toast.LENGTH_LONG).show();
+            dbHandler.close();
         });
         return binding.getRoot();
     }

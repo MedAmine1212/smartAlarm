@@ -17,15 +17,18 @@ public class Alarm {
     Integer status;
     @ColumnInfo(name = "repeat")
     Integer repeat;
+    @ColumnInfo(name = "setAt")
+    String setAt;
     @ColumnInfo(name = "reqId")
     Integer reqId;
 
-    public Alarm(Long time,String timeString,Integer status, Integer repeat,Integer reqId) {
+    public Alarm(Long time,String timeString,Integer status, Integer repeat,String setAt,Integer reqId) {
         this.reqId = reqId;
         this.time = time;
         this.timeString = timeString;
         this.status = status;
         this.repeat = repeat;
+        this.setAt = setAt;
     }
 
     @NonNull
