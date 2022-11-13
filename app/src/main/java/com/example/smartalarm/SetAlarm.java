@@ -26,6 +26,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Set;
 
 public class SetAlarm extends AppCompatActivity {
@@ -83,10 +84,18 @@ public class SetAlarm extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    Date now = new Date();
+                    int hourNow = now.getHours();
+                    int minuteNow = now.getMinutes();
                     calendar.set(Calendar.HOUR_OF_DAY,timePick.getHour());
                     calendar.set(Calendar.MINUTE,timePick.getMinute());
                     calendar.set(Calendar.SECOND,0);
                     calendar.set(Calendar.MILLISECOND,0);
+                    if(hourNow > timePick.getHour()) {
+                        calendar.add(Calendar.DATE, 1);
+                    } else if(hourNow == timePick.getHour() && minuteNow >= timePick.getMinute()) {
+                        calendar.add(Calendar.DATE, 1);
+                    }
 
                 }
                 Intent idBroadCast = new Intent(SetAlarm.this, MyReciever.class);
@@ -109,7 +118,8 @@ public class SetAlarm extends AppCompatActivity {
                         timeString+="0";
                     }
                     timeString+=timePick.getMinute();
-                    newAlarm = new Alarm(calendar.getTimeInMillis(),timeString, 1, repeat, reqCode);
+
+                    newAlarm = new Alarm(calendar.getTimeInMillis(),timeString, 1, repeat, new Date().toString(), reqCode);
                     if(id == -1) {
                     dbHandler.alarmDAO().addAlarm(newAlarm);
                     Toast.makeText(SetAlarm.this, "Alarm set successfully !",

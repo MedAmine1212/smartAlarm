@@ -37,15 +37,15 @@ public class HomeFragment extends Fragment {
 
         final TextView textView = binding.textHome;
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        setAlarmsList();
+        setAlarmsList(textView);
         return root;
     }
-    public void setAlarmsList() {
+    public void setAlarmsList(TextView textView) {
         AlarmDatabase dbHandler = Room.databaseBuilder(MainActivity.instance.getApplicationContext(),
                 AlarmDatabase.class, "alarm_db").allowMainThreadQueries().build();
         List<Alarm> alarmList = dbHandler.alarmDAO().getAlarmsList();
         if(alarmList.size() == 0) {
-            ((TextView)MainActivity.instance.findViewById(R.id.text_home)).setText("No Alarms to show");
+            textView.setText("No Alarms to show");
         } else {
 
             Collections.reverse(alarmList);

@@ -15,6 +15,10 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.room.Room;
 
+import java.time.Instant;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 public class MyReciever extends BroadcastReceiver {
     MediaPlayer mp;
     
@@ -23,12 +27,16 @@ public class MyReciever extends BroadcastReceiver {
 
         int id = intent.getIntExtra("reqCode", 0);
 
+        Date dateNow = new Date();
 
         AlarmDatabase dbHandler = Room.databaseBuilder(context,
                 AlarmDatabase.class, "alarm_db").allowMainThreadQueries().build();
         Alarm alarm = dbHandler.alarmDAO().getAlarmByReqCode(id);
         System.out.println("status: "+alarm.status);
         if(alarm.status == 0) {
+            //update setTime +1 day and return
+            alarm.setAt = dateNow.toString();
+            dbHandler.alarmDAO().updateAlarm(alarm);
             dbHandler.close();
             return;
         }
@@ -50,21 +58,29 @@ public class MyReciever extends BroadcastReceiver {
         notificationManagerCompat.notify(123, builder.build());
 
 
-        //play alarm sound
+        //play alarm sound and set sleep time stats
         AppData appData = dbHandler.appDataDAO().getAppData();
+        Date setDate = new Date(alarm.setAt);
+
+        long duration  = dateNow.getTime() - setDate.getTime();
+
+        long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(duration);
+        System.out.println(diffInMinutes);
         mp = MediaPlayer.create(context, Uri.parse(appData.ringtoneUri));
         mp.setLooping(true);
         mp.start();
 
+        //update setTime +1 day
+        alarm.setAt = dateNow.toString();
         //get the alarm and check if should be repeated or canceled
        if(alarm.repeat == 0) {
            //cancel repeat
            alarm.status = 0;
-           dbHandler.alarmDAO().updateAlarm(alarm);
            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
            AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
            am.cancel(pendingIntent);
        }
+        dbHandler.alarmDAO().updateAlarm(alarm);
         dbHandler.close();
 
     }
