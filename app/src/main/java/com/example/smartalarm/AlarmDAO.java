@@ -29,6 +29,9 @@ public interface AlarmDAO {
     @Query("delete from alarm")
     Integer deleteAll();
 
+    @Query("update alarm set status = 0, repeat = 0")
+    void disableAll();
+
     @Query("select * from alarm where reqId = :id")
     Alarm getAlarmByReqCode(Integer id);
 }

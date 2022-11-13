@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.BaseAdapter;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -17,7 +16,6 @@ import android.widget.Toast;
 
 import androidx.room.Room;
 
-import java.util.Collections;
 import java.util.List;
 
 public class CustomBaseAdapter extends BaseAdapter {

@@ -5,9 +5,12 @@ import androidx.room.Room;
 
 import android.os.Bundle;
 import android.widget.ListView;
-import android.widget.Switch;
+import android.widget.TextView;
 
-public class alarmsList extends AppCompatActivity {
+import java.util.Collections;
+import java.util.List;
+
+public class AlarmsList extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
