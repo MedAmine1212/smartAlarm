@@ -25,6 +25,7 @@ public class QuizzActivity extends AppCompatActivity {
     private RadioButton rb2;
     private RadioButton rb3;
     private Button buttonConfirmNext;
+    private Button buttonDisableAlarm;
     private TextView result;
     private ColorStateList textColorDefaultRb;
     private ColorStateList textColorDefaultCd;
@@ -49,7 +50,13 @@ public class QuizzActivity extends AppCompatActivity {
         rb3 = findViewById(R.id.radio_button3);
         result = findViewById(R.id.result);
         buttonConfirmNext = findViewById(R.id.button_confirm_next);
+        buttonDisableAlarm = findViewById(R.id.button_cancel);
 
+        buttonDisableAlarm.setOnClickListener(view -> {
+            MyReciever.instance.mp.stop();
+            Intent intent = new Intent(QuizzActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
         textColorDefaultRb = rb1.getTextColors();
 
             currentQuestion = dbHandler.questionDAO().getRandomQuestion();

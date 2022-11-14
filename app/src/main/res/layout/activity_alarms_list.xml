@@ -10,7 +10,6 @@
     android:paddingBottom="20dp"
     tools:context=".AlarmsList">
 
-
     <TextView
         android:id="@+id/alarmTime"
         android:layout_width="270dp"

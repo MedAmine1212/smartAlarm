@@ -49,11 +49,12 @@ public class MyReciever extends BroadcastReceiver {
         long duration  = dateNow.getTime() - setDate.getTime();
 
         long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(duration);
+        appData.totalSleepPeriod+=diffInMinutes+3000;
+        dbHandler.appDataDAO().updateAppData(appData);
         mp = MediaPlayer.create(context, Uri.parse(appData.ringtoneUri));
         mp.setLooping(true);
         mp.start();
 
-        System.out.println("Running");
         //Quizz intent here f blaset MainActivity and send notification
         Intent quizIntent = new Intent(context, QuizzActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -80,6 +81,7 @@ public class MyReciever extends BroadcastReceiver {
            AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
            am.cancel(pendingIntent);
        }
+        alarm.setAt = dateNow.toString();
         dbHandler.alarmDAO().updateAlarm(alarm);
         dbHandler.close();
 

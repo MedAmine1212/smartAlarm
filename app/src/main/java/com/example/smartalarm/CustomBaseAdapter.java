@@ -1,5 +1,7 @@
 package com.example.smartalarm;
 
+import static android.content.Context.ALARM_SERVICE;
+
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
@@ -73,7 +75,7 @@ public class CustomBaseAdapter extends BaseAdapter {
                             int reqId = alarmList.get(position).reqId;
                             Intent intent = new Intent(ctx, MyReciever.class);
                             PendingIntent pendingIntent = PendingIntent.getBroadcast(ctx, reqId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                            AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
+                            AlarmManager am = (AlarmManager) ctx.getSystemService(ALARM_SERVICE);
                             am.cancel(pendingIntent);
                             notifyDataSetChanged();
                             dbHandler.alarmDAO().deleteAlarm(alarmList.get(position));
@@ -108,6 +110,14 @@ public class CustomBaseAdapter extends BaseAdapter {
                         Toast.LENGTH_LONG).show();
                 alarm.status = 1;
                 alarm.repeat = 1;
+                Intent idBroadCast = new Intent(mainActivity, MyReciever.class);
+                idBroadCast.putExtra("reqCode", alarm.reqId);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(mainActivity, alarm.reqId, idBroadCast, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                AlarmManager alarmManager = (AlarmManager) mainActivity.getSystemService(ALARM_SERVICE);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, alarm.time, pendingIntent);
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarm.time, AlarmManager.INTERVAL_DAY, pendingIntent);
+
             } else {
                 Toast.makeText(ctx, "Alarm deactivated !",
                         Toast.LENGTH_LONG).show();
