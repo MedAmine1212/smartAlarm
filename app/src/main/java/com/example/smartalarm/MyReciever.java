@@ -49,7 +49,7 @@ public class MyReciever extends BroadcastReceiver {
         long duration  = dateNow.getTime() - setDate.getTime();
 
         long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(duration);
-        appData.totalSleepPeriod+=diffInMinutes+3000;
+        appData.totalSleepPeriod+=diffInMinutes;
         dbHandler.appDataDAO().updateAppData(appData);
         mp = MediaPlayer.create(context, Uri.parse(appData.ringtoneUri));
         mp.setLooping(true);
