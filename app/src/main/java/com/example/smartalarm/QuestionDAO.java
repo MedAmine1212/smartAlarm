@@ -32,9 +32,9 @@ public interface QuestionDAO {
     Question getRandomQuestion();
 
     @Query("SELECT * FROM  Question WHERE selected = ' false '")
-    Question getNoSelectedQuestion();
+    List<Question> getNoSelectedQuestion();
 
     @Query("SELECT * FROM  Question WHERE selected = ' true '")
-    Question getSelectedQuestion();
+    List<Question> getSelectedQuestion();
 
 }
