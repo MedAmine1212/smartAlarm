@@ -93,7 +93,7 @@ public class SetAlarm extends AppCompatActivity {
                     calendar.set(Calendar.MILLISECOND,0);
                     if(hourNow > timePick.getHour()) {
                         calendar.add(Calendar.DATE, 1);
-                    } else if(hourNow == timePick.getHour() && minuteNow >= timePick.getMinute()) {
+                    } else if(hourNow == timePick.getHour() && minuteNow > timePick.getMinute()) {
                         calendar.add(Calendar.DATE, 1);
                     }
 
