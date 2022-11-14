@@ -14,7 +14,7 @@
 
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/smartOnOff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -23,14 +23,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Switch
-        android:id="@+id/switch2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="28dp"
-        android:text="Random Quizz"
-        app:layout_constraintStart_toStartOf="parent"/>
     <View
         android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
@@ -63,6 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
         android:text=""
         android:gravity="center"
         android:textSize="18sp"
@@ -87,7 +80,7 @@
         android:textSize="20sp"
         android:textColor="#f5425a" />
     <ListView
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:id="@+id/otherquizzers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -99,10 +92,9 @@
         android:id="@+id/noNotSelected"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="62dp"
+        android:layout_marginTop="20dp"
         android:textSize="18sp"
         android:gravity="center"
-        android:textColor="#42f5b0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 

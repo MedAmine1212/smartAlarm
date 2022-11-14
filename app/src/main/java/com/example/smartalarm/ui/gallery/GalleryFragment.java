@@ -19,6 +19,7 @@ import androidx.room.Room;
 
 import com.example.smartalarm.Alarm;
 import com.example.smartalarm.AlarmDatabase;
+import com.example.smartalarm.AppData;
 import com.example.smartalarm.CustomBaseAdapter;
 import com.example.smartalarm.CustomotherquizzerAdapter;
 import com.example.smartalarm.CustomquizzerAdapter;
@@ -47,35 +48,72 @@ public class GalleryFragment extends Fragment {
 
         binding = FragmentGalleryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        AlarmDatabase dbHandler = Room.databaseBuilder(MainActivity.instance.getApplicationContext(),
+                AlarmDatabase.class, "alarm_db").allowMainThreadQueries().build();
+        AppData appData = dbHandler.appDataDAO().getAppData();
+        binding.smartOnOff.setChecked(appData.smartAlarm);
+        binding.smartOnOff.setOnClickListener(view -> {
+            if(binding.smartOnOff.isChecked()){
+                Toast.makeText(MainActivity.instance, "Smart alarm is activated !",
+                        Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(MainActivity.instance, "Smart alarm is deactivated (Lazy) !",
+                        Toast.LENGTH_LONG).show();
+            }
+                appData.smartAlarm = binding.smartOnOff.isChecked();
+                dbHandler.appDataDAO().updateAppData(appData);
+        });
         setGetNoSelectedQuestion();
        setGetSelectedQuestion();
+       dbHandler.close();
         return root;
     }
 
 
     public void setGetNoSelectedQuestion() {
+        binding.noNotSelected.setText("");
         AlarmDatabase dbHandler = Room.databaseBuilder(MainActivity.instance.getApplicationContext(),
                 AlarmDatabase.class, "alarm_db").allowMainThreadQueries().build();
         NoSelectedQuestion = dbHandler.questionDAO().getNoSelectedQuestion();
         if(NoSelectedQuestion.size() == 0) {
             binding.noNotSelected.setText("No quizzes to show");
+            return;
         } else {
 
             Collections.reverse(NoSelectedQuestion);
             notSelectedQuizzes = binding.otherquizzers;
-            CustomotherquizzerAdapter nonSelectedApapter = new CustomotherquizzerAdapter(MainActivity.instance.getApplicationContext(), NoSelectedQuestion);
+            nonSelectedApapter = new CustomotherquizzerAdapter(MainActivity.instance.getApplicationContext(), NoSelectedQuestion);
             notSelectedQuizzes.setAdapter(nonSelectedApapter);
         }
+        notSelectedQuizzes.setOnItemClickListener((parent, view, position, id) -> {
+
+            Question qs = NoSelectedQuestion.get(position);
+            SelectedQuestion.add(qs);
+            qs.setSelected(true);
+            dbHandler.questionDAO().updateQuestion(qs);
+            NoSelectedQuestion.remove(position);
+            nonSelectedApapter.notifyDataSetChanged();
+            if(selectedApadter != null)
+                selectedApadter.notifyDataSetChanged();
+            else {
+                setGetSelectedQuestion();
+            }
+            if(NoSelectedQuestion.size() == 0) {
+                binding.noNotSelected.setText("No quizzes to show");
+            }
+        });
         dbHandler.close();
     }
 
     public void setGetSelectedQuestion() {
+        binding.noSelected.setText("");
         AlarmDatabase dbHandler = Room.databaseBuilder(MainActivity.instance.getApplicationContext(),
                 AlarmDatabase.class, "alarm_db").allowMainThreadQueries().build();
         SelectedQuestion = dbHandler.questionDAO().getSelectedQuestion();
         System.out.println(SelectedQuestion.size());
         if(SelectedQuestion.size() == 0) {
             binding.noSelected.setText("No quizzes to show");
+            return;
         } else {
 
             Collections.reverse(SelectedQuestion);
@@ -83,17 +121,25 @@ public class GalleryFragment extends Fragment {
             selectedApadter = new CustomquizzerAdapter(MainActivity.instance.getApplicationContext(), SelectedQuestion);
             selectedQuizzes.setAdapter(selectedApadter);
         }
-        selectedQuizzes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-               @Override
-               public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        selectedQuizzes.setOnItemClickListener((parent, view, position, id) -> {
 
-                   NoSelectedQuestion.add( SelectedQuestion.get(position));
-                   SelectedQuestion.remove(position);
-                   if(SelectedQuestion.size() == 0)
-                       binding.noSelected.setText("No quizzes to show");
-                   selectedApadter.notifyDataSetChanged();
-               }
-           });
+            if(SelectedQuestion.size() == 1) {
+                Toast.makeText(MainActivity.instance, "Minimum 1 quizz selected is required",
+                        Toast.LENGTH_LONG).show();
+                return;
+            }
+            Question qs = SelectedQuestion.get(position);
+            NoSelectedQuestion.add( qs);
+            qs.setSelected(false);
+            dbHandler.questionDAO().updateQuestion(qs);
+            SelectedQuestion.remove(position);
+            selectedApadter.notifyDataSetChanged();
+            if(nonSelectedApapter != null)
+                nonSelectedApapter.notifyDataSetChanged();
+            else {
+                setGetNoSelectedQuestion();
+            }
+        });
         dbHandler.close();
     }
 
