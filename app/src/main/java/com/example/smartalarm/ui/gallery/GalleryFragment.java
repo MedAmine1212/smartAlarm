@@ -69,6 +69,10 @@ public class GalleryFragment extends Fragment {
         dbHandler.close();
     }
 
+
+
+
+
     public void setGetSelectedQuestion() {
         AlarmDatabase dbHandler = Room.databaseBuilder(MainActivity.instance.getApplicationContext(),
                 AlarmDatabase.class, "alarm_db").allowMainThreadQueries().build();
