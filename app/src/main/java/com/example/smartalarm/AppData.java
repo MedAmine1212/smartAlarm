@@ -10,10 +10,13 @@ public class AppData {
     public Integer id;
     @ColumnInfo(name = "ringtoneUri")
     public String ringtoneUri;
+    @ColumnInfo(name = "smartAlarm")
+    public Boolean smartAlarm;
 
 
 
-    public AppData(String ringtoneUri) {
+    public AppData(String ringtoneUri, Boolean smartAlarm) {
         this.ringtoneUri = ringtoneUri;
+        this.smartAlarm = smartAlarm;
     }
 }

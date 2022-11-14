@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createAppData() {
-        AppData appData = new AppData(Settings.System.DEFAULT_ALARM_ALERT_URI.toString());
+        AppData appData = new AppData(Settings.System.DEFAULT_ALARM_ALERT_URI.toString(), true);
         dbHandler.appDataDAO().createAppData(appData);
     }
 
