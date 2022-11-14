@@ -37,4 +37,6 @@ public interface QuestionDAO {
     @Query("SELECT * FROM  Question WHERE selected = 1 ")
     List<Question> getSelectedQuestion();
 
+
+
 }

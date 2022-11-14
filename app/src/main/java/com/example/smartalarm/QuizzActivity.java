@@ -135,4 +135,8 @@ public class QuizzActivity extends AppCompatActivity {
         setResult(RESULT_OK, resultIntent);
         finish();
     }
+
+
+
+
 }
