@@ -11,20 +11,21 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.smartalarm.databinding.FragmentGalleryBinding;
+import com.example.smartalarm.databinding.FragmentStatsBinding;
 
 public class StatsFragment extends Fragment {
 
-    private FragmentGalleryBinding binding;
+    private FragmentStatsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         StatsViewModel galleryViewModel =
                 new ViewModelProvider(this).get(StatsViewModel.class);
 
-        binding = FragmentGalleryBinding.inflate(inflater, container, false);
+        binding = FragmentStatsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textGallery;
+        final TextView textView = binding.textStats;
         galleryViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }

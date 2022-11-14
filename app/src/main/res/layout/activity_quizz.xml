@@ -1,37 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context="com.example.smartalarm.MainActivity">
+    tools:context=".QuizzActivity">
 
     <TextView
-        android:id="@+id/text_view_score"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Score: 0"
-        android:textColor="@android:color/black"
-        android:freezesText="true"/>
-
-    <TextView
-        android:id="@+id/text_view_question_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/text_view_score"
-        android:text="Question: 1/x"
-        android:textColor="@android:color/black"
-        android:freezesText="true"/>
-
-    <TextView
-        android:id="@+id/text_view_countdown"
+        android:id="@+id/result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:text="00:30"
+        android:text="Answer to stop the alarm"
         android:textColor="@android:color/black"
-        android:textSize="40sp"
+        android:textSize="20sp"
         android:freezesText="true"/>
 
     <TextView
@@ -83,5 +67,15 @@
         android:layout_marginTop="16dp"
         android:text="Confirm"
         android:freezesText="true"/>
+
+    <Button
+        android:id="@+id/button_cancel"
+        android:layout_width="match_parent"
+        android:backgroundTint="@color/red"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/radio_group"
+        android:layout_marginTop="78dp"
+        android:freezesText="true"
+        android:text="Stop Alarm without answering" />
 
 </RelativeLayout>
