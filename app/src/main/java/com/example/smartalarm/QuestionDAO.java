@@ -28,7 +28,7 @@ public interface QuestionDAO {
     @Query("delete from Question")
     Integer deleteAllQuestion();
 
-    @Query("SELECT * FROM  Question ORDER BY RANDOM() LIMIT 1")
+    @Query("SELECT * FROM  Question WHERE selected = 1 ORDER BY RANDOM() LIMIT 1")
     Question getRandomQuestion();
 
     @Query("SELECT * FROM  Question WHERE selected = 0")
@@ -36,5 +36,6 @@ public interface QuestionDAO {
 
     @Query("SELECT * FROM  Question WHERE selected = 1 ")
     List<Question> getSelectedQuestion();
+
 
 }

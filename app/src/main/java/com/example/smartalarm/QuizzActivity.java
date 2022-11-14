@@ -42,7 +42,11 @@ public class QuizzActivity extends AppCompatActivity {
 
         dbHandler = Room.databaseBuilder(getApplicationContext(),
                 AlarmDatabase.class, "alarm_db").allowMainThreadQueries().build();
-
+        AppData appdata = dbHandler.appDataDAO().getAppData();
+        if(!appdata.smartAlarm){
+            stopTheAlarm();
+            finish();
+        }
         textViewQuestion = findViewById(R.id.text_view_question);
         rbGroup = findViewById(R.id.radio_group);
         rb1 = findViewById(R.id.radio_button1);
@@ -99,11 +103,15 @@ public class QuizzActivity extends AppCompatActivity {
             result.setText("Wrong answer ! try again");
             result.setTextColor(Color.RED);
         } else {
-            MyReciever.instance.mp.stop();
-            Intent intent = new Intent(QuizzActivity.this, MainActivity.class);
-            startActivity(intent);
+            stopTheAlarm();
         }
 
+    }
+
+    private void stopTheAlarm() {
+        MyReciever.instance.mp.stop();
+        Intent intent = new Intent(QuizzActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 
     private void showSolution() {
@@ -135,4 +143,8 @@ public class QuizzActivity extends AppCompatActivity {
         setResult(RESULT_OK, resultIntent);
         finish();
     }
+
+
+
+
 }
