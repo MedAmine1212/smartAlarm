@@ -54,6 +54,7 @@ public CustomquizzerAdapter(Context ctx, List<Question> questionList){
     convertView = inflater.inflate(R.layout.activity_quiz_list,null);
     TextView txtView = (TextView)  convertView.findViewById(R.id.selectedQuizzer);
     txtView.setText((CharSequence) listQuestion.get(position).getQuestion());
+
     return convertView;
     }
 }
