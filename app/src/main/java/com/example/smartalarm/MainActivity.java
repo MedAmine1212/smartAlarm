@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         dbHandler = Room.databaseBuilder(getApplicationContext(),
                 AlarmDatabase.class, "alarm_db").allowMainThreadQueries().build();
         AppData appData = dbHandler.appDataDAO().getAppData();
-        addSleepingStats();
+//        addSleepingStats();
        try  {
            if (appData == null) {
                createAppData();
@@ -85,9 +85,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void fillQuestionsTable() {
-        Question q1 = new Question("A is correct", "A", "B", "C", 1, false);
+        Question q1 = new Question("A is correct", "A", "B", "C", 1, true);
         dbHandler.questionDAO().addQuestion(q1);
-        Question q2 = new Question("B is correct", "A", "B", "C", 2, false);
+        Question q2 = new Question("B is correct", "A", "B", "C", 2, true);
         dbHandler.questionDAO().addQuestion(q2);
         Question q3 = new Question("C is correct", "A", "B", "C", 3,false);
         dbHandler.questionDAO().addQuestion(q3);
