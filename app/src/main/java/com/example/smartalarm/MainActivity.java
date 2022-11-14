@@ -38,13 +38,16 @@ public class MainActivity extends AppCompatActivity {
         dbHandler = Room.databaseBuilder(getApplicationContext(),
                 AlarmDatabase.class, "alarm_db").allowMainThreadQueries().build();
         AppData appData = dbHandler.appDataDAO().getAppData();
-        try {
-            if (appData == null) {
-                createAppData();
-            }
-        } catch (Exception ignored) {
-            createAppData();
-        }
+       try {
+           if (appData == null) {
+               createAppData();
+           }
+       } catch (Exception ignored) {
+           createAppData();
+       }
+       if(dbHandler.questionDAO().getQuestionCount() == 0){
+           fillQuestionsTable();
+       }
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -74,6 +77,22 @@ public class MainActivity extends AppCompatActivity {
     private void createAppData() {
         AppData appData = new AppData(Settings.System.DEFAULT_ALARM_ALERT_URI.toString(), 0L, new Date().toString());
         dbHandler.appDataDAO().createAppData(appData);
+    }
+
+
+
+    private void fillQuestionsTable() {
+        Question q1 = new Question("A is correct", "A", "B", "C", 1);
+        dbHandler.questionDAO().addQuestion(q1);
+        Question q2 = new Question("B is correct", "A", "B", "C", 2);
+        dbHandler.questionDAO().addQuestion(q2);
+        Question q3 = new Question("C is correct", "A", "B", "C", 3);
+        dbHandler.questionDAO().addQuestion(q3);
+        Question q4 = new Question("A is correct again", "A", "B", "C", 1);
+        dbHandler.questionDAO().addQuestion(q4);
+        Question q5 = new Question("B is correct again", "A", "B", "C", 2);
+        dbHandler.questionDAO().addQuestion(q5);
+
     }
 
 
