@@ -85,15 +85,15 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void fillQuestionsTable() {
-        Question q1 = new Question("A is correct", "A", "B", "C", 1);
+        Question q1 = new Question("A is correct", "A", "B", "C", 1, true);
         dbHandler.questionDAO().addQuestion(q1);
-        Question q2 = new Question("B is correct", "A", "B", "C", 2);
+        Question q2 = new Question("B is correct", "A", "B", "C", 2, true);
         dbHandler.questionDAO().addQuestion(q2);
-        Question q3 = new Question("C is correct", "A", "B", "C", 3);
+        Question q3 = new Question("C is correct", "A", "B", "C", 3,false);
         dbHandler.questionDAO().addQuestion(q3);
-        Question q4 = new Question("A is correct again", "A", "B", "C", 1);
+        Question q4 = new Question("A is correct again", "A", "B", "C", 1,false);
         dbHandler.questionDAO().addQuestion(q4);
-        Question q5 = new Question("B is correct again", "A", "B", "C", 2);
+        Question q5 = new Question("B is correct again", "A", "B", "C", 2,false);
         dbHandler.questionDAO().addQuestion(q5);
 
     }
