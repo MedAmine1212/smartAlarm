@@ -52,13 +52,14 @@ public class StatsFragment extends Fragment {
                 AlarmDatabase.class, "alarm_db").allowMainThreadQueries().build();
         sleepingStats = dbHandler.sleepingStatsDAO().getStatsForLastMonth();
 
-        if(sleepingStats.size() >0) {
+        System.out.println(sleepingStats.size());
+        if(sleepingStats.size() >5) {
             binding.container.setVisibility(View.VISIBLE);
             startProgress();
             setBarChart();
         }
         else {
-            binding.textStats.setText("No data found to generate statistics");
+            binding.textStats.setText("No data found to generate statistics, Use the app more to get sleeping stats");
             binding.container.setVisibility(View.GONE);
         }
         return root;
@@ -133,7 +134,10 @@ public class StatsFragment extends Fragment {
             @Override
             public void run() {
                 float sleepTime = 0f;
-                for(int i=0; i<7;i++) {
+                int size = 7;
+                if(sleepingStats.size()<7)
+                    size = sleepingStats.size();
+                for(int i=0; i<size;i++) {
                     sleepTime+=sleepingStats.get(i).sleptTime;
                 }
                 sleepTime = (sleepTime/(1440f*7f))*100f;

@@ -36,7 +36,7 @@ public class GalleryFragment extends Fragment {
         binding = FragmentGalleryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         setGetNoSelectedQuestion();
-       //setGetSelectedQuestion();
+       setGetSelectedQuestion();
         return root;
     }
 
@@ -50,7 +50,7 @@ public class GalleryFragment extends Fragment {
         } else {
 
             Collections.reverse(NoSelectedQuestion);
-            ListView listview = binding.selectedQuizzers;
+            ListView listview = binding.otherquizzers;
             CustomotherquizzerAdapter customAdapter = new CustomotherquizzerAdapter(MainActivity.instance.getApplicationContext(), NoSelectedQuestion);
             listview.setAdapter(customAdapter);
         }
@@ -67,7 +67,7 @@ public class GalleryFragment extends Fragment {
         } else {
 
             Collections.reverse(SelectedQuestion);
-            ListView listview = binding.otherquizzers;
+            ListView listview = binding.selectedQuizzers;
             CustomquizzerAdapter customAdapter = new CustomquizzerAdapter(MainActivity.instance.getApplicationContext(), SelectedQuestion);
             listview.setAdapter(customAdapter);
         }
