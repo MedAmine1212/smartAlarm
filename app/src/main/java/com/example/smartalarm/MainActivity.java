@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
         dbHandler = Room.databaseBuilder(getApplicationContext(),
                 AlarmDatabase.class, "alarm_db").allowMainThreadQueries().build();
         AppData appData = dbHandler.appDataDAO().getAppData();
-//        addSleepingStats();
-       try {
+        addSleepingStats();
+       try  {
            if (appData == null) {
                createAppData();
            }
