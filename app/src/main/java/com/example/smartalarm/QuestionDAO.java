@@ -5,7 +5,6 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
-import com.example.smartalarm.Question;
 import java.util.List;
 
 @Dao
@@ -31,5 +30,11 @@ public interface QuestionDAO {
 
     @Query("SELECT * FROM  Question ORDER BY RANDOM() LIMIT 1")
     Question getRandomQuestion();
+
+    @Query("SELECT * FROM  Question WHERE selected = ' false '")
+    Question getNoSelectedQuestion();
+
+    @Query("SELECT * FROM  Question WHERE selected = ' true '")
+    Question getSelectedQuestion();
 
 }

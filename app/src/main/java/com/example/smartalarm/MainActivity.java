@@ -38,13 +38,13 @@ public class MainActivity extends AppCompatActivity {
         dbHandler = Room.databaseBuilder(getApplicationContext(),
                 AlarmDatabase.class, "alarm_db").allowMainThreadQueries().build();
         AppData appData = dbHandler.appDataDAO().getAppData();
-       try {
-           if (appData == null) {
-               createAppData();
-           }
-       } catch (Exception ignored) {
-           createAppData();
-       }
+        try {
+            if (appData == null) {
+                createAppData();
+            }
+        } catch (Exception ignored) {
+            createAppData();
+        }
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
