@@ -15,7 +15,7 @@
         <item
             android:id="@+id/nav_stats"
             android:icon="@drawable/stats"
-            android:title="Stats" />
+            android:title="Sleeping stats" />
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/settings"

@@ -47,7 +47,7 @@
             android:layout_marginTop="3dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reset stats"/>
+            android:text="Reset sleeping stats"/>
     </LinearLayout>
     <View
         android:layout_marginTop="25dp"
@@ -70,7 +70,7 @@
             android:layout_marginTop="3dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reset quizzes"/>
+            android:text="Reset quizzes preferences"/>
     </LinearLayout>
     <View
         android:layout_marginTop="25dp"
