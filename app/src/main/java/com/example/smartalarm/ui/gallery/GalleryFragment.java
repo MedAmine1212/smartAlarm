@@ -15,6 +15,7 @@ import androidx.room.Room;
 import com.example.smartalarm.Alarm;
 import com.example.smartalarm.AlarmDatabase;
 import com.example.smartalarm.CustomBaseAdapter;
+import com.example.smartalarm.CustomotherquizzerAdapter;
 import com.example.smartalarm.CustomquizzerAdapter;
 import com.example.smartalarm.MainActivity;
 import com.example.smartalarm.Question;
@@ -34,33 +35,35 @@ public class GalleryFragment extends Fragment {
 
         binding = FragmentGalleryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
+        setGetNoSelectedQuestion();
+       //setGetSelectedQuestion();
         return root;
     }
 
 
-    public void setGetNoSelectedQuestion(TextView textView) {
+    public void setGetNoSelectedQuestion() {
         AlarmDatabase dbHandler = Room.databaseBuilder(MainActivity.instance.getApplicationContext(),
                 AlarmDatabase.class, "alarm_db").allowMainThreadQueries().build();
         List<Question> NoSelectedQuestion = dbHandler.questionDAO().getNoSelectedQuestion();
         if(NoSelectedQuestion.size() == 0) {
-            textView.setText("No questions to show");
+            binding.noNotSelected.setText("No quizzes to show");
         } else {
 
             Collections.reverse(NoSelectedQuestion);
             ListView listview = binding.selectedQuizzers;
-            CustomquizzerAdapter customAdapter = new CustomquizzerAdapter(MainActivity.instance.getApplicationContext(), NoSelectedQuestion);
+            CustomotherquizzerAdapter customAdapter = new CustomotherquizzerAdapter(MainActivity.instance.getApplicationContext(), NoSelectedQuestion);
             listview.setAdapter(customAdapter);
         }
         dbHandler.close();
     }
 
-    public void setGetSelectedQuestion(TextView textView) {
+    public void setGetSelectedQuestion() {
         AlarmDatabase dbHandler = Room.databaseBuilder(MainActivity.instance.getApplicationContext(),
                 AlarmDatabase.class, "alarm_db").allowMainThreadQueries().build();
         List<Question> SelectedQuestion = dbHandler.questionDAO().getSelectedQuestion();
+        System.out.println(SelectedQuestion.size());
         if(SelectedQuestion.size() == 0) {
-            textView.setText("No questions to show");
+            binding.noSelected.setText("No quizzes to show");
         } else {
 
             Collections.reverse(SelectedQuestion);

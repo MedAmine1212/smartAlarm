@@ -31,10 +31,10 @@ public interface QuestionDAO {
     @Query("SELECT * FROM  Question ORDER BY RANDOM() LIMIT 1")
     Question getRandomQuestion();
 
-    @Query("SELECT * FROM  Question WHERE selected = ' false '")
+    @Query("SELECT * FROM  Question WHERE selected = 0")
     List<Question> getNoSelectedQuestion();
 
-    @Query("SELECT * FROM  Question WHERE selected = ' true '")
+    @Query("SELECT * FROM  Question WHERE selected = 1 ")
     List<Question> getSelectedQuestion();
 
 }
