@@ -7,19 +7,13 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "appData")
 public class AppData {
     @PrimaryKey(autoGenerate = true)
-    Integer id;
+    public Integer id;
     @ColumnInfo(name = "ringtoneUri")
-    String ringtoneUri;
-    @ColumnInfo(name = "totalSleepPeriod")
-    Long totalSleepPeriod;
-    @ColumnInfo(name = "statsStartDate")
-    String statsStartDate;
+    public String ringtoneUri;
 
 
 
-    public AppData(String ringtoneUri, Long totalSleepPeriod, String statsStartDate) {
+    public AppData(String ringtoneUri) {
         this.ringtoneUri = ringtoneUri;
-        this.totalSleepPeriod = totalSleepPeriod;
-        this.statsStartDate = statsStartDate;
     }
 }

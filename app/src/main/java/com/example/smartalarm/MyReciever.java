@@ -43,14 +43,20 @@ public class MyReciever extends BroadcastReceiver {
 
 
         //play alarm sound and set sleep time stats
+
+        //sleeping stats***************
         AppData appData = dbHandler.appDataDAO().getAppData();
         Date setDate = new Date(alarm.setAt);
 
         long duration  = dateNow.getTime() - setDate.getTime();
 
         long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(duration);
-        appData.totalSleepPeriod+=diffInMinutes;
-        dbHandler.appDataDAO().updateAppData(appData);
+
+        dbHandler.sleepingStatsDAO().addSleepingStats(new SleepingStats(diffInMinutes, alarm.setAt));
+
+        //end sleeping stats*****************************
+
+        //alarm sound
         mp = MediaPlayer.create(context, Uri.parse(appData.ringtoneUri));
         mp.setLooping(true);
         mp.start();
