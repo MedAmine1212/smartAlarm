@@ -22,6 +22,8 @@ import androidx.room.Room;
 
 import com.example.smartalarm.databinding.ActivityMainBinding;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -38,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
         dbHandler = Room.databaseBuilder(getApplicationContext(),
                 AlarmDatabase.class, "alarm_db").allowMainThreadQueries().build();
         AppData appData = dbHandler.appDataDAO().getAppData();
-       try {
+        addSleepingStats();
+       try  {
            if (appData == null) {
                createAppData();
            }
@@ -75,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createAppData() {
-        AppData appData = new AppData(Settings.System.DEFAULT_ALARM_ALERT_URI.toString(), 0L, new Date().toString());
+        AppData appData = new AppData(Settings.System.DEFAULT_ALARM_ALERT_URI.toString());
         dbHandler.appDataDAO().createAppData(appData);
     }
 
@@ -93,6 +96,33 @@ public class MainActivity extends AppCompatActivity {
         Question q5 = new Question("B is correct again", "A", "B", "C", 2,false);
         dbHandler.questionDAO().addQuestion(q5);
 
+    }
+
+
+    private void addSleepingStats() {
+        // add virtual sleep time
+        SleepingStats s1 = new SleepingStats(480L, "Mon Nov 14 17:55:25 GMT+01:00 2022");
+        dbHandler.sleepingStatsDAO().addSleepingStats(s1);
+        SleepingStats s2 = new SleepingStats(500L, "Sun Nov 13 17:55:25 GMT+01:00 2022");
+        dbHandler.sleepingStatsDAO().addSleepingStats(s2);
+        SleepingStats s3 = new SleepingStats(600L, "Mon Nov 07 17:55:25 GMT+01:00 2022");
+        dbHandler.sleepingStatsDAO().addSleepingStats(s3);
+        SleepingStats s4 = new SleepingStats(320L, "Tue Nov 01 17:55:25 GMT+01:00 2022");
+        dbHandler.sleepingStatsDAO().addSleepingStats(s4);
+        SleepingStats s5 = new SleepingStats(450L, "Wen Nov 02 17:55:25 GMT+01:00 2022");
+        dbHandler.sleepingStatsDAO().addSleepingStats(s5);
+        SleepingStats s6 = new SleepingStats(340L, "Thu Nov 03 17:55:25 GMT+01:00 2022");
+        dbHandler.sleepingStatsDAO().addSleepingStats(s6);
+        SleepingStats s7 = new SleepingStats(220L, "Fri Nov 04 17:55:25 GMT+01:00 2022");
+        dbHandler.sleepingStatsDAO().addSleepingStats(s7);
+        SleepingStats s8 = new SleepingStats(504L, "Sat Nov 05 17:55:25 GMT+01:00 2022");
+        dbHandler.sleepingStatsDAO().addSleepingStats(s8);
+        SleepingStats s9 = new SleepingStats(237L, "Sun Nov 06 17:55:25 GMT+01:00 2022");
+        dbHandler.sleepingStatsDAO().addSleepingStats(s9);
+        SleepingStats s10 = new SleepingStats(334L, "Mon Nov 07 17:55:25 GMT+01:00 2022");
+        dbHandler.sleepingStatsDAO().addSleepingStats(s10);
+        SleepingStats s11 = new SleepingStats(346L, "Tue Nov 08 17:55:25 GMT+01:00 2022");
+        dbHandler.sleepingStatsDAO().addSleepingStats(s11);
     }
 
 

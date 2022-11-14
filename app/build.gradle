@@ -32,6 +32,10 @@ android {
 }
 
 dependencies {
+    //charts dependencies
+    implementation "com.github.PhilJay:MPAndroidChart:v3.1.0"
+
+
     // Force WorkManager 2.6.0 for transitive dependency
 
     implementation "androidx.room:room-runtime:2.4.3"

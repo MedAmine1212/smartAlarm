@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="20dp"
+    android:paddingTop="40dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.stats.stats.StatsFragment">
@@ -14,9 +17,259 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:textAlignment="center"
+        android:textSize="20sp"/>
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+        <TextView
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_marginEnd="20dp"
+            android:text="Per period"
+            tools:ignore="RtlHardcoded" />
+    <View
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/light_gray"/>
+    <View
+        android:layout_marginTop="-28dp"
+        android:layout_marginBottom="25dp"
+        android:layout_width="125dp"
+        android:layout_height="3dp"
+        android:layout_gravity="right"
+        android:background="@android:color/darker_gray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingLeft="27dp"
+                android:textColor="@color/gray"
+                android:textSize="16sp"
+                android:layout_marginEnd="20dp"
+                android:text="This day"
+                tools:ignore="RtlHardcoded" />
+        <RelativeLayout
+            android:layout_width="110dp"
+            android:layout_height="120dp"
+            >
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="100"
+                android:progressDrawable="@drawable/this_day_background"
+                android:rotation="-90" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <ProgressBar
+                android:id="@+id/thisDay"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentStart="true"
+                android:indeterminate="false"
+                android:max="100"
+                android:progressDrawable="@drawable/this_day_foreground"
+                android:rotation="-90" />
+                <RelativeLayout
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/textDay"
+                        android:textSize="20sp"
+                        android:layout_marginTop="-23dp"
+                        android:textColor="@color/teal_200"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text=""/>
+                </RelativeLayout>
+            </FrameLayout>
+        </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingLeft="27dp"
+                android:textColor="@color/gray"
+                android:textSize="16sp"
+                android:layout_marginEnd="20dp"
+                android:text="This week"
+                tools:ignore="RtlHardcoded" />
+        <RelativeLayout
+            android:layout_width="110dp"
+            android:layout_height="120dp"
+            >
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="100"
+                android:progressDrawable="@drawable/this_week_background"
+                android:rotation="-90" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <ProgressBar
+                android:id="@+id/thisWeek"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentStart="true"
+                android:indeterminate="false"
+                android:max="100"
+                android:progressDrawable="@drawable/this_week_foreground"
+                android:rotation="-90" />
+                <RelativeLayout
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/textWeek"
+                        android:textSize="20sp"
+                        android:layout_marginTop="-23dp"
+                        android:textColor="@color/red"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text=""/>
+                </RelativeLayout>
+            </FrameLayout>
+        </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            >
+
+            <TextView
+                android:layout_width="129dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:paddingLeft="27dp"
+                android:text="This month"
+                android:textColor="@color/gray"
+                android:textSize="16sp"
+                tools:ignore="RtlHardcoded" />
+        <RelativeLayout
+            android:layout_width="110dp"
+            android:layout_height="120dp"
+            >
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="100"
+                android:progressDrawable="@drawable/this_month_background"
+                android:rotation="-90" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <ProgressBar
+                android:id="@+id/thisMonth"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentStart="true"
+                android:indeterminate="false"
+                android:max="100"
+                android:progressDrawable="@drawable/this_month_foreground"
+                android:rotation="-90" />
+                <RelativeLayout
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/textMonth"
+                android:textSize="20sp"
+                android:layout_marginTop="-23dp"
+                android:textColor="@color/purple_700"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text=""/>
+        </RelativeLayout>
+            </FrameLayout>
+        </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <TextView
+        android:paddingTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_marginEnd="20dp"
+        android:text="30 days period chart"
+        tools:ignore="RtlHardcoded" />
+
+        <View
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/light_gray"/>
+
+        <View
+            android:layout_width="213dp"
+            android:layout_height="3dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="-28dp"
+
+            android:layout_marginBottom="25dp"
+            android:background="@android:color/darker_gray" />
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:layout_marginBottom="55dp"
+        android:id="@+id/barChart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+    </LinearLayout>
+
+</LinearLayout>
