@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.room.Room;
 
+import java.util.Date;
 import java.util.List;
 
 public class CustomBaseAdapter extends BaseAdapter {
@@ -113,7 +114,10 @@ public class CustomBaseAdapter extends BaseAdapter {
                 Intent idBroadCast = new Intent(mainActivity, MyReciever.class);
                 idBroadCast.putExtra("reqCode", alarm.reqId);
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(mainActivity, alarm.reqId, idBroadCast, PendingIntent.FLAG_UPDATE_CURRENT);
-
+                Date date = new Date();
+                if(alarm.time  < date.getTime()){
+                    alarm.time+=86400000;
+                }
                 AlarmManager alarmManager = (AlarmManager) mainActivity.getSystemService(ALARM_SERVICE);
                 alarmManager.set(AlarmManager.RTC_WAKEUP, alarm.time, pendingIntent);
                 alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarm.time, AlarmManager.INTERVAL_DAY, pendingIntent);
