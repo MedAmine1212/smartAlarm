@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class QuizzActivity extends AppCompatActivity {
 
@@ -103,6 +104,9 @@ public class QuizzActivity extends AppCompatActivity {
             result.setText("Wrong answer ! try again");
             result.setTextColor(Color.RED);
         } else {
+            Toast.makeText(MainActivity.instance, "Good job, you managed to stop the crazy alarm ! 😁",
+                    Toast.LENGTH_LONG).show();
+            dbHandler.close();
             stopTheAlarm();
         }
 

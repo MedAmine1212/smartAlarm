@@ -26,6 +26,7 @@ import com.example.smartalarm.AlarmDatabase;
 import com.example.smartalarm.CustomBaseAdapter;
 import com.example.smartalarm.MainActivity;
 import com.example.smartalarm.MyReciever;
+import com.example.smartalarm.Question;
 import com.example.smartalarm.R;
 import com.example.smartalarm.RingtoneAdapter;
 import com.example.smartalarm.SetAlarm;
@@ -83,7 +84,7 @@ public class SlideshowFragment extends Fragment {
                         AlarmDatabase dbHandler = Room.databaseBuilder(MainActivity.instance.getApplicationContext(),
                                 AlarmDatabase.class, "alarm_db").allowMainThreadQueries().build();
                         dbHandler.sleepingStatsDAO().clearSleepingStats();
-                        Toast.makeText(MainActivity.instance, "Sleeping stats reset successfully",
+                        Toast.makeText(MainActivity.instance, "Sleeping stats reset successfully !",
                                 Toast.LENGTH_LONG).show();
                         dbHandler.close();
                     });
@@ -101,7 +102,9 @@ public class SlideshowFragment extends Fragment {
             builder.setMessage("Are you sure you want to reset quizzes preferences ?");
             builder.setPositiveButton("Confirm",
                     (dialog, which) -> {
-                        // reset quizzes stats;
+                        fillQuestionsTable();
+                        Toast.makeText(MainActivity.instance, "Quizzes preferences reset successfully !",
+                                Toast.LENGTH_LONG).show();
 
                     });
             builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
@@ -118,5 +121,23 @@ public class SlideshowFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    private void fillQuestionsTable() {
+        AlarmDatabase dbHandler = Room.databaseBuilder(MainActivity.instance.getApplicationContext(),
+                AlarmDatabase.class, "alarm_db").allowMainThreadQueries().build();
+        dbHandler.questionDAO().deleteAllQuestion();
+        Question q1 = new Question("What color is the sky", "Red", "Blue", "Green", 2, true);
+        dbHandler.questionDAO().addQuestion(q1);
+        Question q2 = new Question("Who's the greatest football player of all time", "Messi", "Ronaldo", "Khlifa banneni", 3, true);
+        dbHandler.questionDAO().addQuestion(q2);
+        Question q3 = new Question("How many days in the week", "2", "18", "7", 3,false);
+        dbHandler.questionDAO().addQuestion(q3);
+        Question q4 = new Question("ln(369)", "80,5", "69", "2,56", 3,false);
+        dbHandler.questionDAO().addQuestion(q4);
+        Question q5 = new Question("How many second in a day", "79000", "86400", "90000", 2,false);
+        dbHandler.questionDAO().addQuestion(q5);
+        dbHandler.close();
+
     }
 }

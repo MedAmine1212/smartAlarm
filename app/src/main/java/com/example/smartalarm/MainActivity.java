@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         dbHandler = Room.databaseBuilder(getApplicationContext(),
                 AlarmDatabase.class, "alarm_db").allowMainThreadQueries().build();
         AppData appData = dbHandler.appDataDAO().getAppData();
-//        addSleepingStats();
+//       addSleepingStats();
        try  {
            if (appData == null) {
                createAppData();
@@ -85,15 +85,15 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void fillQuestionsTable() {
-        Question q1 = new Question("A is correct", "A", "B", "C", 1, true);
+        Question q1 = new Question("What color is the sky", "Red", "Blue", "Green", 2, true);
         dbHandler.questionDAO().addQuestion(q1);
-        Question q2 = new Question("B is correct", "A", "B", "C", 2, true);
+        Question q2 = new Question("Who's the greatest football player of all time", "Messi", "Ronaldo", "Khlifa banneni", 3, true);
         dbHandler.questionDAO().addQuestion(q2);
-        Question q3 = new Question("C is correct", "A", "B", "C", 3,false);
+        Question q3 = new Question("How many days in the week", "2", "18", "7", 3,false);
         dbHandler.questionDAO().addQuestion(q3);
-        Question q4 = new Question("A is correct again", "A", "B", "C", 1,false);
+        Question q4 = new Question("ln(369)", "80,5", "69", "2,56", 3,false);
         dbHandler.questionDAO().addQuestion(q4);
-        Question q5 = new Question("B is correct again", "A", "B", "C", 2,false);
+        Question q5 = new Question("How many second in a day", "79000", "86400", "90000", 2,false);
         dbHandler.questionDAO().addQuestion(q5);
 
     }
